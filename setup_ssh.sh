@@ -3,7 +3,7 @@
 # Установка SSH-сервера
 sudo apt install -y openssh-server
 
-# Создание ключа SSH (рекомендуется, если нет)
+# Создание ключа SSH 
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
 # Копирование ключа на сервер (или в authorized_keys, если на локальной машине)
