@@ -6,9 +6,12 @@ from launch.conditions import IfCondition
 import os
 from ament_index_python.packages import get_package_share_directory
 
+
 def generate_launch_description():
 
+
     package_name = 'my_robot_vacuum'
+
 
     rviz_arg = DeclareLaunchArgument(
         name='rviz',
@@ -16,12 +19,14 @@ def generate_launch_description():
         description='Open RViz2 along with the robot driver'
     )
 
+
     # Determine path to rviz config file
     rviz_config_file = os.path.join(
         get_package_share_directory(package_name),
         'rviz',
         'robot_view.rviz'
     )
+
 
     rviz_node = Node(
         package='rviz2',
@@ -33,6 +38,23 @@ def generate_launch_description():
     )
 
 
+    # USB Cam node
+    usb_cam_node = Node(
+        package='usb_cam',
+        executable='usb_cam_node',
+        name='usb_cam',
+        parameters=[
+            {'image_width': 640},
+            {'image_height': 480},
+            {'camera_name': 'camera'}
+        ],
+        namespace='', 
+        output='screen'
+    )
+
+
+
+
     return LaunchDescription([
         rviz_arg,
         Node(
@@ -42,6 +64,7 @@ def generate_launch_description():
             namespace='',  
             output='screen' # Вывод в терминал
 
+
         ),
         Node(
             package=package_name,
@@ -50,5 +73,6 @@ def generate_launch_description():
             namespace='',
             output='screen'
         ),
+        usb_cam_node, 
         rviz_node
     ])
