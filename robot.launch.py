@@ -39,7 +39,7 @@ def generate_launch_description():
             package=package_name,
             executable='ultrasonic_sensor',
             name='ultrasonic_sensor_node',
-            namespace='',  # Optional: specify namespace if needed
+            namespace='',  
             output='screen' # Вывод в терминал
 
         ),
